@@ -1,0 +1,22 @@
+{
+    "name": "nicdamours/validator",
+    "description": "A simple, input validator that support chained command.",
+    "type": "library",
+    "require": {
+        "php": "^7.1.3",
+        "tightenco/collect": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicolas",
+            "email": "n.damours.00@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0" : {
+            "nicdamours\\validator" : "src"
+        }
+    },
+    "minimum-stability": "dev"
+}
