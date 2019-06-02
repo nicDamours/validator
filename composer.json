@@ -13,8 +13,8 @@
         }
     ],
     "autoload": {
-        "psr-0" : {
-            "nicdamours\\validator" : "src"
+        "psr-4" : {
+            "nicdamours\\Validator" : "src"
         }
     },
     "minimum-stability": "dev"
