@@ -26,18 +26,18 @@ namespace nicdamours\Validator {
 
         private function __construct($object) {
             $this->objectToValidate = $object;
-            $this->validationQueryArray = Collection::make([]);
+            $this->validationQueryArray = [];
         }
 
         public function email(string $property, bool $canBeNull = true): Validator {
-            $this->validationQueryArray->push(new ValidationQuery($property, function ($item) {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function ($item) {
                 return filter_var($item, FILTER_VALIDATE_EMAIL);
             }, $canBeNull));
             return $this;
         }
 
         public function password(string $property, bool $canBeNull = true): Validator {
-            $this->validationQueryArray->push(new ValidationQuery($property, function ($item) {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function ($item) {
                 return filter_var($item, FILTER_VALIDATE_REGEXP, array("options" =>
                     array("regexp" => Regex::PASSWORD)));
             }, $canBeNull));
@@ -45,7 +45,7 @@ namespace nicdamours\Validator {
         }
 
         public function title(string $property, bool $canBeNull = true): Validator {
-            $this->validationQueryArray->push(new ValidationQuery($property, function ($item) {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function ($item) {
                 return filter_var($item, FILTER_VALIDATE_REGEXP, array("options" =>
                     array("regexp" => Regex::TITLE)));
             }, $canBeNull));
@@ -53,7 +53,7 @@ namespace nicdamours\Validator {
         }
 
         public function datetime(string $property, bool $canBeNull = true): Validator {
-            $this->validationQueryArray->push(new ValidationQuery($property, function ($item) {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function ($item) {
                 return filter_var($item, FILTER_VALIDATE_REGEXP, array("options" =>
                     array("regexp" => Regex::DATE_TIME)));
             }, $canBeNull));
@@ -61,7 +61,7 @@ namespace nicdamours\Validator {
         }
 
         public function date(string $property, bool $canBeNull = true): Validator {
-            $this->validationQueryArray->push(new ValidationQuery($property, function ($item) {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function ($item) {
                 return filter_var($item, FILTER_VALIDATE_REGEXP, array("options" =>
                     array("regexp" => Regex::DATE)));
             }, $canBeNull));
@@ -69,7 +69,7 @@ namespace nicdamours\Validator {
         }
 
         public function isoDatetime(string $property, bool $canBeNull = true): Validator {
-            $this->validationQueryArray->push(new ValidationQuery($property, function ($item) {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function ($item) {
                 return filter_var($item, FILTER_VALIDATE_REGEXP, array("options" =>
                     array("regexp" => Regex::ISO_DATE)));
             }, $canBeNull));
@@ -77,14 +77,14 @@ namespace nicdamours\Validator {
         }
 
         public function boolean(string $property, bool $canBeNull = true): Validator {
-            $this->validationQueryArray->push(new ValidationQuery($property, function ($item) {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function ($item) {
                 return $item || $item === "true";
             }, $canBeNull));
             return $this;
         }
 
         public function id(string $property, bool $canBeNull = true): Validator {
-            $this->validationQueryArray->push(new ValidationQuery($property, function ($item) {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function ($item) {
                 return filter_var($item, FILTER_VALIDATE_REGEXP, array("options" =>
                     array("regexp" => Regex::NUMERIC)));
             }, $canBeNull));
@@ -92,7 +92,7 @@ namespace nicdamours\Validator {
         }
 
         public function int(string $property, bool $canBeNull = true): Validator {
-            $this->validationQueryArray->push(new ValidationQuery($property, function ($item) {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function ($item) {
                 return filter_var($item, FILTER_VALIDATE_REGEXP, array("options" =>
                     array("regexp" => Regex::NUMERIC)));
             }, $canBeNull));
@@ -100,25 +100,25 @@ namespace nicdamours\Validator {
         }
 
         public function arrayOfInt(string $property, bool $canBeNull = true) : Validator {
-            $this->validationQueryArray->push(new ValidationQuery($property, function ($item) {
-                return Collection::make($item)->every(function ($subItem) {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function ($item) {
+                return Helper::array_every(function ($subItem) {
                     return is_int($subItem);
-                });
+                }, $item);
             }, $canBeNull));
             return $this;
         }
 
         public function arrayOfString(string $property, bool $canBeNull = true) : Validator {
-            $this->validationQueryArray->push(new ValidationQuery($property, function ($item) {
-                return Collection::make($item)->every(function ($subItem) {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function ($item) {
+                return Helper::array_every(function ($subItem) {
                     return is_string($subItem);
-                });
+                }, $item);
             }, $canBeNull));
             return $this;
         }
 
         public function path(string $property, bool $canBeNull = true): Validator {
-            $this->validationQueryArray->push(new ValidationQuery($property, function($item) {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function($item) {
                 return filter_var($item, FILTER_VALIDATE_REGEXP, array("options" =>
                     array("regexp" => Regex::PATH)));
             }, $canBeNull));
@@ -126,11 +126,12 @@ namespace nicdamours\Validator {
         }
 
         public function validate(): bool {
+            // cannot directly use $this-> with the use keyword
             $objectToValidate = $this->objectToValidate;
-            return $this->validationQueryArray->every(function ($item) use ($objectToValidate) {
+            return Helper::array_every(function ($item) use ($objectToValidate) {
                 /** @var ValidationQuery $item */
                 return $item->isValid($objectToValidate);
-            });
+            }, $this->validationQueryArray);
         }
 
         public static function make($object): Validator {
