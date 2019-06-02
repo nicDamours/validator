@@ -6,7 +6,7 @@
  * Time: 9:08 PM
  */
 
-namespace nDamours\Validator {
+namespace nicdamours\Validator {
     class ValidationQuery {
 
         /**

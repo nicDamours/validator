@@ -7,10 +7,6 @@
  */
 namespace nicdamours\Validator {
 
-    use nDamours\Validator\Regex;
-    use nDamours\Validator\ValidationQuery;
-    use Tightenco\Collect\Support\Collection;
-
     class Validator {
 
 
@@ -20,7 +16,7 @@ namespace nicdamours\Validator {
         private $objectToValidate;
 
         /**
-         * @var Collection<ValidationQuery>
+         * @var ValidationQuery[]
          */
         private $validationQueryArray;
 

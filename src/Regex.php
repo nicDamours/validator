@@ -6,7 +6,7 @@
  * Time: 9:22 PM
  */
 
-namespace nDamours\Validator {
+namespace nicdamours\Validator {
     class Regex {
         const PASSWORD = "/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{7,20})\S$/";
         const NAME = "/^[a-z ,.'\-éèêëáàâäíìîïóòôöúùûü]+$/ui";
