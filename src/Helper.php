@@ -3,7 +3,7 @@
 // reference  : https://gist.github.com/kid-icarus/8661319
 
 
-namespace nicdamours\validator {
+namespace nicdamours\Validator {
     class Helper {
         /**
          * Returns true if the given predicate is true for all elements.
