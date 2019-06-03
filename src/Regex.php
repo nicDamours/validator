@@ -38,6 +38,6 @@ namespace nicdamours\Validator {
         const STRIPE_TOKEN = "/^((tok_|sub_|cus_|card_)([a-zA-Z0-9])+)$/";
         const DATE_TIME = "/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/";
         const LATITUDE_LONGITUDE = "/^-?[0-9]{1,3}(?:\.[0-9]{1,20})?$/";
-        const PATH = "/^(.+)/([^/]+)$";
+        const PATH = "/^(.+)\/([^\/]+)$/";
     }
 }
