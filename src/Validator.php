@@ -121,6 +121,14 @@ namespace nicdamours\Validator {
             return $this;
         }
 
+        public function version(string $property, bool $canBeNull = true): Validator {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function($item) {
+                return filter_var($item, FILTER_VALIDATE_REGEXP, array("options" =>
+                    array("regexp" => Regex::VERSION)));
+            }, $canBeNull));
+            return $this;
+        }
+
         public function validate(): bool {
             // cannot directly use $this-> with the use keyword
             $objectToValidate = $this->objectToValidate;

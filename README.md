@@ -65,3 +65,4 @@ Currently, we support those validation method.
 - arrayOfString
 - arrayOfInt
 - path ( /var/www/html )
+- version ( Ex: 1, 1.2, 1.2.3);
