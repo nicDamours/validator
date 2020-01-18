@@ -56,13 +56,14 @@ Currently, we support those validation method.
 - email
 - password ( 7 to 20 letter, number, special char, must have one uppercase )
 - title
-- datetime ( YYYY-MM-DD hh:mm:ss )
-- date ( YYYY-MM-DD )
-- isoDatetime ( YYYY-MM-DDThh:mm:ss+0500 the timezone can be format 0500 or 05:00)
+- datetime ( `YYYY-MM-DD hh:mm:ss` )
+- date ( `YYYY-MM-DD` )
+- isoDatetime ( `YYYY-MM-DDThh:mm:ss+0500` the timezone can be format `0500` or `05:00`, or any other number)
 - boolean ( as boolean or string )
 - id ( int )
 - int 
 - arrayOfString
 - arrayOfInt
-- path ( /var/www/html )
+- path ( `/var/www/html` )
 - version ( Ex: 1, 1.2, 1.2.3);
+- HEX color ( `#ffffff`, `#fff`)
