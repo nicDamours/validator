@@ -41,11 +41,11 @@ Ex :
     ];
     
     return Validator::make($myObject)
-                        ->name('name', false // this cannot be null.)
+                        ->name('name', false) // this cannot be null.
                         ->int('age')
-                        ->boolean('isAdult',  false // this cannot be null.)
-                        ->email('email',  false // this cannot be null.)
-                        ->date('birthDate',  false // this cannot be null.)
+                        ->boolean('isAdult',  false) // this cannot be null.
+                        ->email('email',  false) // this cannot be null.
+                        ->date('birthDate',  false) // this cannot be null.
                         ->validate();
 
 ```
@@ -67,3 +67,4 @@ Currently, we support those validation method.
 - path ( `/var/www/html` )
 - version ( Ex: 1, 1.2, 1.2.3);
 - HEX color ( `#ffffff`, `#fff`)
+- inArray ( if the element is in an array )

@@ -137,7 +137,12 @@ namespace nicdamours\Validator {
             return $this;
         }
 
-
+        public function inArray(string $property, array $possibilities, bool $canBeNull = true) : Validator {
+            array_push($this->validationQueryArray, new ValidationQuery($property, function($item) use ($possibilities) {
+                return in_array($item, $possibilities);
+            }, $canBeNull));
+            return $this;
+        }
 
         public function validate(): bool {
             // cannot directly use $this-> with the use keyword
