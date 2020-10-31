@@ -15,7 +15,11 @@
     "autoload": {
         "classmap": [
             "src/"
-        ]
+        ],
+        "psr-4": {
+            "nicDamours\\Validator\\": "src/",
+            "nicDamours\\Validator\\tests\\": "tests/"
+        }
     },
     "minimum-stability": "dev",
     "require-dev": {

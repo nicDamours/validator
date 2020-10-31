@@ -1,0 +1,10 @@
+<phpunit bootstrap="src/autoload.php">
+    <testsuites>
+        <testsuite name="i18n">
+            <file>tests/i18nTest.php</file>
+        </testsuite>
+        <testsuite name="validator">
+            <directory>validators</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
