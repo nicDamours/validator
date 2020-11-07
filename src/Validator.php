@@ -7,6 +7,7 @@ use nicDamours\Validator\validators\BooleanValidator;
 use nicDamours\Validator\validators\DateTimeValidator;
 use nicDamours\Validator\validators\DateValidator;
 use nicDamours\Validator\validators\EmailValidator;
+use nicDamours\Validator\validators\FloatValidator;
 use nicDamours\Validator\validators\HexColorValidator;
 use nicDamours\Validator\validators\IdValidator;
 use nicDamours\Validator\validators\InArrayValidator;
@@ -36,7 +37,8 @@ use nicDamours\Validator\validators\VersionValidator;
  * @method Validator arrayOfString(string $property, $canBeNull = true) validate an array of strings
  * @method Validator path(string $property, $canBeNull = true) validate a path ( path/to/some/thing )
  * @method Validator version(string $property, $canBeNull = true) validate a version number ( 1.1.1 )
- * @method Validator hexColor(string $property, $canBeNull = true) validate a hex color #FFFFF
+ * @method Validator hexColor(string $property, $canBeNull = true) validate a hex color #FFFFFF or #FFF
+ * @method Validator float(string $property, $canBeNull = true) validate a float, as string or primitive
  */
 class Validator {
 
@@ -54,7 +56,8 @@ class Validator {
         'arrayOfString' => ArrayOfStringValidator::class,
         'path' => PathValidator::class,
         'version' => VersionValidator::class,
-        'hexColor' => HexColorValidator::class
+        'hexColor' => HexColorValidator::class,
+        'float' => FloatValidator::class
     ];
 
     /**

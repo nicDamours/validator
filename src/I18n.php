@@ -11,7 +11,8 @@ class I18n {
         "notInArray" => "not in array (<values>)",
         "notAnArrayOfInteger" => "not an array of integers",
         "notAnArrayOfStrings" => "not an array of strings",
-        "notABoolean" => "not a boolean"
+        "notABoolean" => "not a boolean",
+        "notAFloat" => "not a float"
     ];
 
     private $i18n;

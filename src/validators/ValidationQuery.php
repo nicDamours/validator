@@ -8,6 +8,7 @@
 
 namespace nicDamours\Validator\validators;
 
+use nicDamours\Validator\exceptions\PropertyNotFoundException;
 use nicDamours\Validator\I18n;
 use nicDamours\Validator\Regex;
 
@@ -79,29 +80,36 @@ abstract class ValidationQuery {
 
     public function isValid($object, &$error): bool {
         $valueFromObject = $this->getValueFromObject($object);
-        if ($valueFromObject == null && $this->isCanBeNull()) {
+        if ($valueFromObject === null && $this->isCanBeNull()) {
             return true;
-        } else if($valueFromObject == null && !$this->isCanBeNull()) {
+        } else if($valueFromObject === null && !$this->isCanBeNull()) {
             $error[] = I18n::getMessage('not_found', [
                 'property' => $this->getValidationKey()
             ]);
             return false;
         }
         $validationErrors = [];
-        $valid = $this->getValidationCallback()($valueFromObject, $validationErrors);
-        if(!$valid) {
-            $placeholderValues = [
-                'property' => $this->getValidationKey()
-            ];
+        try {
+            $valid = $this->getValidationCallback()($valueFromObject, $validationErrors);
+            if(!$valid) {
+                $placeholderValues = [
+                    'property' => $this->getValidationKey()
+                ];
 
-            if(sizeof($validationErrors) > 0) {
-                $placeholderValues['error_message'] = join(', ', $validationErrors);
-            } else {
-                $placeholderValues['error_message'] = $this->getErrorMessage();
+                if(sizeof($validationErrors) > 0) {
+                    $placeholderValues['error_message'] = join(', ', $validationErrors);
+                } else {
+                    $placeholderValues['error_message'] = $this->getErrorMessage();
+                }
+                $error[] = I18n::getMessage('invalid', $placeholderValues);
             }
-            $error[] = I18n::getMessage('invalid', $placeholderValues);
+            return $valid;
+        } catch(PropertyNotFoundException $exception) {
+            $error[] = I18n::getMessage('not_found', [
+                'property' => $this->getValidationKey()
+            ]);
+          return false;
         }
-        return $valid;
     }
 
     private function getValueFromObject($object) {

@@ -4,6 +4,7 @@
 namespace nicDamours\Validator\validators;
 
 
+use nicDamours\Validator\exceptions\PropertyNotFoundException;
 use nicDamours\Validator\Helper;
 use nicDamours\Validator\I18n;
 use nicDamours\Validator\Regex;
@@ -17,9 +18,8 @@ class ArrayOfIntValidator extends ValidationQuery {
                return false;
            }
 
-           if($this->isCanBeNull() && sizeof($item) === 0) {
-               $errors[] = I18n::getMessage('not_found');
-               return false;
+           if(!$this->isCanBeNull() && sizeof($item) === 0) {
+               throw new PropertyNotFoundException();
            }
 
            return Helper::array_every(function ($subItem) {
