@@ -9,8 +9,7 @@ class PathValidator extends ValidationQuery {
 
     protected function getValidationCallback(): callable {
         return function($item) {
-            return filter_var($item, FILTER_VALIDATE_REGEXP, array("options" =>
-                array("regexp" => Regex::PATH)));
+            return $this->validateWithRegex($item, Regex::PATH);
         };
     }
 

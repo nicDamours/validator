@@ -14,6 +14,8 @@ use nicDamours\Validator\Regex;
 
 abstract class ValidationQuery {
 
+    const VALUES_CONSIDERED_NULL = ["", null];
+
     /**
      * @var string;
      */
@@ -80,7 +82,7 @@ abstract class ValidationQuery {
 
     public function isValid($object, &$error): bool {
         $valueFromObject = $this->getValueFromObject($object);
-        if ($valueFromObject === null && $this->isCanBeNull()) {
+        if (($valueFromObject === null || $valueFromObject === "") && $this->isCanBeNull()) {
             return true;
         } else if($valueFromObject === null && !$this->isCanBeNull()) {
             $error[] = I18n::getMessage('not_found', [
@@ -123,6 +125,6 @@ abstract class ValidationQuery {
 
     protected function validateWithRegex($value, string $regex) : bool {
         return filter_var($value, FILTER_VALIDATE_REGEXP, array("options" =>
-            array("regexp" => $regex)));
+            array("regexp" => $regex))) !== FALSE;
     }
 }
